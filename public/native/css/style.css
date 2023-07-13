@@ -1,0 +1,39 @@
+h3 {
+    text-align: center;
+    padding: 1px;
+}
+/* img {
+    width: 50px;
+    height: 50px;
+} */
+
+.conta {
+    background-color: rgb(32, 86, 236);
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+body {
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    gap: 20px;
+}
+
+.geeks {
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.geeks img {
+    width: 96%;
+    transition: 0.5s all ease-in-out;
+}
+
+.geeks:hover img {
+    transform: scale(1.1);
+}
