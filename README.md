@@ -4,9 +4,5 @@
 ![alt text](https://github.com/IlhamPratama01/laravel_kopi/blob/main/public/fotoproduk/Screenshot%20(68).png?raw=true)
 
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-=======
-# laravel_kopi
->>>>>>> 3854071fb4caa2232b07d6824a789d29bc317721
+Website admin kedai kopi 
+berikut tampilan untuk tambah produk 
