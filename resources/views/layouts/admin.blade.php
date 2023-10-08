@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="{{ asset('admin/css/style.css') }}">
     <!-- endinject -->
     <link rel="shortcut icon" href="{{ asset('admin/images/favicon.png') }}" />
+    <link rel="stylesheet" href="sweetalert2.min.css">
 
     <link href="https://cdn.datatables.net/v/bs5/jq-3.6.0/jszip-2.5.0/dt-1.13.4/b-2.3.6/b-html5-2.3.6/b-print-2.3.6/r-2.4.1/datatables.min.css" rel="stylesheet"/>
 
@@ -56,10 +57,59 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/v/bs5/jq-3.6.0/jszip-2.5.0/dt-1.13.4/b-2.3.6/b-html5-2.3.6/b-print-2.3.6/r-2.4.1/datatables.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="sweetalert2.min.js"></script>
 <script>
     AOS.init();
 </script>
+<script>
+    function sukses(){
+        Swal.fire({
+  position: 'top-center',
+  icon: 'success',
+  title: 'Data berhasil disimpan',
+  showConfirmButton: false,
+  timer: 1500
+});
+    }
 
+    function hapus(id) {
+    Swal.fire({
+        title: 'Hapus data?',
+        text: "Anda yakin ingin menghapus data ini!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel' // Tambahkan tombol Cancel
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Redirect ke URL penghapusan saat pengguna mengklik "Yes, delete it!"
+            window.location.href = "/destroy/" + id;
+        }
+    });
+}
+
+
+    function ubah(id){
+        Swal.fire({
+        title: 'Edit data?',
+        text: "Anda yakin ingin mengubah data ini!",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, edit it!',
+        cancelButtonText: 'Cancel' // Tambahkan tombol Cancel
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Redirect ke URL penghapusan saat pengguna mengklik "Yes, delete it!"
+            window.location.href = href="/produk/ubah/" + id;
+        }
+    });
+    }
+</script>
     @livewireScripts
 </body>
 </html>

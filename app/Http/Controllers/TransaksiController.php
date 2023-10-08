@@ -8,9 +8,8 @@ use App\Models\Produk;
 use App\Models\TransaksiDetail;
 use App\Models\Transaksi;
 use App\Models\User;
-use Auth;
-use Carbon\Carbon;
-use PDF;
+use Illuminate\Support\Facades\Auth;
+
 
 class TransaksiController extends Controller
 {
@@ -29,53 +28,58 @@ class TransaksiController extends Controller
     }
 
     public function pesan(Request $request, $id)
-        {
-
-            // $user=auth()->user();
-
-            $produk = Produk::where('id', $id)->first();
-            $user=auth()->user();
-            $id=$user->id;
-    $detail = new transaksidetail;
-    $cart = session()->get('cart', []);
-
-    $detail->nama_produk = $produk->nama_produk;
-    $detail->harga = $produk->harga;
-    $detail->jumlah = $request->jumlah ?? 1; // Nilai default jika $request->jumlah kosong
-    $detail->total_biaya = $produk->harga * $detail->jumlah;
-    $detail->id_user=$id;
-    $detail->save();
-
-
-    session()->put('cart', $cart);
-    return redirect()->back()->with('success', 'Produk added to keranjang successfully!');
+    {
+        $produk = Produk::findOrFail($id);
+        $user = auth()->user();
+    
+        $detail = TransaksiDetail::where('id_produk', $produk->id)
+                                ->where('id_user', $user->id)
+                                ->first();
+    
+        if($detail){
+            $detail->jumlah += $request->jumlah ?? 1;
+            $detail->total_harga = $produk->harga * $detail->jumlah;
+            $detail->save();
+        } else {
+            $detail = new TransaksiDetail;
+            $detail->id_produk = $produk->id;
+            $detail->nama_produk = $produk->nama_produk;
+            $detail->harga = $produk->harga;
+            $detail->jumlah = $request->jumlah ?? 1;
+            $detail->total_harga = $produk->harga * $detail->jumlah;
+            $detail->id_user = $user->id;
+            $detail->save();
+        }
+    
+        return redirect()->back()->with('success', 'Produk added to keranjang successfully!');
     }
+    
 
     
-    public function order(Request $request){
-
-        $user=auth()->user();
-        $id=$user->id;
-        $name=$user->name;
+    public function order(){
+        $details = TransaksiDetail::get();
+        $user = auth()->user();
+        $iduser = $user->id;
+        $name = $user->name;  
         $cart = session()->get('cart', []);
 
-        foreach ($request->nama_produk as $key => $nama_produk) {
-            $order = new Transaksi;
-            $order->nama_produk = $request->nama_produk[$key];
-            $order->jumlah = $request->jumlah[$key];
-            $order->grandtotal = $request->total_biaya[$key];
-            $order->id=$id;
-            $order->name=$name;
-
-            $order->save();
-        }
-
-        DB::table('detail_transaksi')->truncate();
-
+        foreach ($details as $detail) {
+        $order = new Transaksi;
+        $order->nama_produk = $detail->nama_produk;
+        $order->id_produk = $detail->id_produk;
+        $order->jumlah = $detail->jumlah;
+        $order->grandtotal = $detail->total_harga;
+        $order->id = $iduser;
+        $order->name = $name;
+    
+        $order->save();
+        }    
         session()->put('cart', $cart);
+        DB::table('detail_transaksi')->truncate();
         return redirect()->back()->with('success', 'Product added to pesanan successfully!');
         
     }
+    
 
     public function delete($id)
     {
@@ -89,6 +93,30 @@ class TransaksiController extends Controller
             ));
 
         }
+    }
+
+    public function tambah(Request $request,$id)
+    {
+        $produk = Produk::findOrFail($id);
+        $user = auth()->user();
+        $detail = TransaksiDetail::where('id_produk', $produk->id)
+                                ->where('id_user', $user->id)
+                                ->first();
+        $detail->jumlah += $request->jumlah ?? 1;
+        $detail->total_harga = $produk->harga * $detail->jumlah;
+        $detail->save();
+    }
+
+    public function kurang(Request $request,$id)
+    {
+        $produk = Produk::findOrFail($id);
+        $user = auth()->user();
+        $detail = TransaksiDetail::where('id_produk', $produk->id)
+                                ->where('id_user', $user->id)
+                                ->first();
+        $detail->jumlah -= $request->jumlah ?? 1;
+        $detail->total_harga = $produk->harga * $detail->jumlah;
+        $detail->save();
     }
 
 

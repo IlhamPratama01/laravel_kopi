@@ -6,6 +6,7 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\TransaksinotaController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,8 @@ use App\Http\Controllers\TransaksinotaController;
 */
 Route::middleware(['guest'])->group(function () {
 
-    Route::get('/',[App\Http\Controllers\Admin\DashboardController::class,'login']);
+    Route::get('/',[App\Http\Controllers\Admin\DashboardController::class,'landing']);
+    Route::get('/login',[App\Http\Controllers\Admin\DashboardController::class,'login']);
     
 });
 

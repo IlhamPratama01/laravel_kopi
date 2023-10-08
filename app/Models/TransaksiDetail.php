@@ -11,10 +11,10 @@ class TransaksiDetail extends Model
    // Daftar atribut yang dapat diisi (fillable)
     protected $fillable = [
     'id',
+    'id_produk',
     'nama_produk',
     'harga',
-    'jumlah',
-    'total_biaya',
+    'jumlah'
 
 ];
 

@@ -21,6 +21,10 @@ class DashboardController extends Controller
         return view('auth.login2');
     }
 
+    public function landing(){
+        return view('auth.landing');
+    }
+
     public function user()
     {
         return view('user.user');

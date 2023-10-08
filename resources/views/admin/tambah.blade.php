@@ -7,9 +7,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('native/css/style.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+      <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+      <link rel="stylesheet" href="{{ asset('native/css/style.css') }}">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/v4-duotone.min.css">
     <title>Ubah Role</title>
   </head>
@@ -48,7 +48,7 @@
             </div>
           </div>
           <div class="col-md-12 text-end">  
-            <input type="submit" class="btn btn-info my-3"  style="margin-left: 10px;" value="Simpan Data">
+            <input type="submit" class="btn btn-info my-3" onclick="sukses()"  style="margin-left: 10px;" value="Simpan Data">
          </form>
         
 </body>

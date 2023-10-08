@@ -11,6 +11,7 @@ class Transaksi extends Model
    // Daftar atribut yang dapat diisi (fillable)
     protected $fillable = [
     'id',
+    'id_produk',
     'tanggal',
     'waktu',
     'status',
@@ -19,9 +20,6 @@ class Transaksi extends Model
     'grandtotal'
 ];
 
-public function user()
-{
-    return $this->belongsTo(User::class);
-}
+
 
 }
